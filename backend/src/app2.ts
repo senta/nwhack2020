@@ -308,8 +308,11 @@ class Game {
     const start = d.getTime() + 3000;
     this.started = start;
 
-    const multipliers = new Array(10).fill(null).map((_, i) => i);
-    multipliers.sort(() => Math.random() - 0.5);
+    const x = new Array(10).fill(null).map((_, i) => i);
+    x.sort(() => Math.random() - 0.5);
+    const y = new Array(10).fill(null).map((_, i) => i);
+    y.sort(() => Math.random() - 0.5);
+    const multipliers = [x, y]
 
     for (const player of this.players) {
       const conn = io.sockets.connected[player.id];

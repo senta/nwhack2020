@@ -32,7 +32,7 @@ export async function joinRoom(id) {
     .post(`/room/${id}/join`, {
       socket_id: socket.id
     })
-    .then(res => res.data.body);
+    .then(res => res.data);
 
   if (status === 200) {
     store.dispatch(actions.roomJoined(body.room));

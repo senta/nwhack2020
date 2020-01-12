@@ -5,7 +5,6 @@ import store from '../../../store';
 import PlayerField from './PlayerField/PlayerField';
 import OpponentFieldMap from './OpponentFieldMap/OpponentFieldMap';
 import Keyboard from './Keyboard/Keyboard';
-import io from 'socket.io-client';
 
 const dummy = {
   multipliers: [[2, 4, 5, 2, 3, 5, 6, 8, 9, 3], [2, 4, 5, 2, 3, 5, 6, 8, 9, 3], [2, 4, 5, 2, 3, 5, 6, 8, 9, 3]],
@@ -47,21 +46,15 @@ const dummy = {
   ]
 }
 
-const socket = io();
-
 function Game(){
-  let [gameState, setGameState] = useState({ status: 'start' });
-  socket.on('GAME_START', (data) => {
-    setGameState({ status: 'start', ...data });
-  });
   return(
     <>
-      {gameState.status === 'start' ? (
-        <Provider store={store}>
+      {true ? (
+        <>
           <PlayerField />
-          <OpponentFieldMap gameState={dummy} socket={socket} />
-          <Keyboard gameState={gameState} socket={socket} />
-        </Provider>
+          <OpponentFieldMap gameState={dummy}/>
+          <Keyboard/>
+        </>
       ) : (<h1>Loading...</h1>)}
     </>
   )

@@ -17,7 +17,7 @@ export async function createRoom() {
       socket_id: socket.id,
       lines: 10 // TODO: take a value from input?
     })
-    .then(res => res.data.body);
+    .then(res => window.location.assign(`/host/${res.data.body.room}`));
 
   if (status === 200) {
     store.dispatch(actions.roomCreated(body.room));
@@ -75,11 +75,11 @@ export function attack(action) {
 socket.on("connect", () => heartbeat.start());
 socket.on("disconnect", () => heartbeat.stop());
 
-socket.on("GAME_START", paload => actions.gameWillStart(paload));
-socket.on("GAME_END", paload => actions.gameFinished(paload));
+socket.on("GAME_START", payload => actions.gameWillStart(payload));
+socket.on("GAME_END", payload => actions.gameFinished(payload));
 
-socket.on("GAME_PLAYER_JOINED", paload => actions.gameJoin(paload));
-socket.on("GAME_PLAYER_LEFT", paload => actions.gameJoin(paload));
+socket.on("GAME_PLAYER_JOINED", payload => actions.gameJoin(payload));
+socket.on("GAME_PLAYER_LEFT", payload => actions.gameJoin(payload));
 
 socket.on("PLAYER_STATE_SYNC", payload => actions.sync(payload));
 socket.on("PLAYER_ATTACKED", payload => actions.attacked(payload));

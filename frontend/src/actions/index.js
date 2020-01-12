@@ -13,6 +13,8 @@ export const GAME_STATE_SYNC = "GAME_STATE_SYNC";
 export const GAME_PLAYER_ATTACKED = "GAME_PLAYER_ATTACKED";
 export const GAME_PLAYER_TIMEOVER = "GAME_PLAYER_TIMEOVER";
 
+// frontend actions
+
 export const setInput = input => {
   return {
     type: SET_INPUT,
@@ -23,6 +25,8 @@ export const setInput = input => {
 export const moveCoordinate = () => {
   return { type: MOVE_COORDINATE };
 };
+
+// backend actions
 
 export const roomCreated = roomId => {
   return { type: ROOM_CREATED, payload: roomId };

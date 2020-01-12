@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import './PlayerField.scss';
 
 const PlayerField = () => {
-  const input = useSelector(state => state.input);
+  const coordinate = useSelector(state => state.coordinate);
   const xNums = useSelector(state => state.xNums);
   const yNums = useSelector(state => state.yNums);
 
@@ -14,23 +14,25 @@ const PlayerField = () => {
           <tr>
             <td></td>
             {
-              xNums.map((xNum) => (
-                <td>
+              xNums.map((xNum, index) => (
+                <td key={index}>
                   <div>{xNum}</div>
                 </td>
               ))
             }
           </tr>
           {
-            yNums.map((yNum) => (
-              <tr>
+            yNums.map((yNum, yIndex) => (
+              <tr key={yIndex}>
                 <td>{yNum}</td>
                 {
-                  xNums.map((xNum) => (
-                    <td>
-                      <div></div>
-                    </td>
-                  ))
+                  xNums.map((xNum, xIndex) => {
+                    return (
+                      <td key={xIndex}>
+                        <div>{(coordinate.y > yIndex || (coordinate.x > xIndex && coordinate.y === yIndex)) ? yNum * xNum : null}</div>
+                      </td>
+                    )
+                  })
                 }
               </tr>
             ))

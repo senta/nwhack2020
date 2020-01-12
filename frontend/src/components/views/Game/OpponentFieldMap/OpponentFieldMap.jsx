@@ -22,10 +22,12 @@ const Opponent = (props) => {
       <h2>{name}</h2>
       {state.multiply ? <span id="multiplier">{state.multiply}x</span> : null}
       <table>
-        <tr className={emptyIndex >= 1 ? 'complete' : 'empty'}>{cells}</tr>
-        <tr className={emptyIndex >= 2 ? 'complete' : 'empty'}>{cells}</tr>
-        <tr className={emptyIndex >= 3 ? 'complete' : 'empty'}>{cells}</tr>
-        <tr className='empty'>{cells}</tr>
+        <tbody>
+          <tr className={emptyIndex >= 1 ? 'complete' : 'empty'}>{cells}</tr>
+          <tr className={emptyIndex >= 2 ? 'complete' : 'empty'}>{cells}</tr>
+          <tr className={emptyIndex >= 3 ? 'complete' : 'empty'}>{cells}</tr>
+          <tr className='empty'>{cells}</tr>
+        </tbody>
       </table>
       <span id="last-line">{finishLine}</span>
     </div>

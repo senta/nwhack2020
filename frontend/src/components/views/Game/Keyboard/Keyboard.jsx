@@ -24,10 +24,8 @@ const Keyboard = (props) => {
         } else {
           return dispatch(setInput(''));
         }
-      } else {
-        if (input + value === answer) {
+      } else if (input + value === answer){
           dispatch(moveCoordinate());
-        }
       }
     }
   };

@@ -21,8 +21,9 @@ const rootReducer = (store = initialValue, action) => {
     case MOVE_COORDINATE:
       return {
         ...store,
+        input: '',
         coordinate: {
-          x: store.coordinate.x === maxX ? 0 : ++store.coordinate.x,
+          x: ++store.coordinate.x === maxX ? 0 : store.coordinate.x,
           y: store.coordinate.x === maxX ? ++store.coordinate.y : store.coordinate.y
         }
       };

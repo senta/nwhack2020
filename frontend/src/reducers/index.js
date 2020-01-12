@@ -1,4 +1,4 @@
-import { SET_INPUT, MOVE_COORDINATE } from "../actions";
+import * as actions from "../actions";
 
 const maxX = 10;
 const initialValue = {
@@ -9,16 +9,23 @@ const initialValue = {
     x: 0,
     y: 0
   },
+  players: [],
+  room: {
+    id: null,
+    startat: -1,
+    winner: null,
+    state: null // "waiting" | "playing" | "finished"
+  }
 };
 
 const rootReducer = (store = initialValue, action) => {
   switch (action.type) {
-    case SET_INPUT:
+    case actions.SET_INPUT:
       return {
         ...store,
         input: action.payload
       };
-    case MOVE_COORDINATE:
+    case actions.MOVE_COORDINATE:
       return {
         ...store,
         input: '',

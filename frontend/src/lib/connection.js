@@ -77,8 +77,8 @@ socket.on("disconnect", () => heartbeat.stop());
 socket.on("GAME_START", paload => actions.gameWillStart(paload));
 socket.on("GAME_END", paload => actions.gameFinished(paload));
 
-socket.on("GAME_PLAYER_JOINED", paload => actions.join(paload));
-socket.on("GAME_PLAYER_LEFT", paload => actions.join(paload));
+socket.on("GAME_PLAYER_JOINED", paload => actions.gameJoin(paload));
+socket.on("GAME_PLAYER_LEFT", paload => actions.gameJoin(paload));
 
 socket.on("PLAYER_STATE_SYNC", payload => actions.sync(payload));
 socket.on("PLAYER_ATTACKED", payload => actions.attacked(payload));

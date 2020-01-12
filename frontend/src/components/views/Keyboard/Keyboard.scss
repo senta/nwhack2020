@@ -1,20 +1,29 @@
 %action {
   position: absolute;
-  bottom: 40px;
+  top: 40px;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-.numpad {
-  display: flex;
-  width: 80%;
-  margin: 0 auto;
-  flex-direction: column;
-  align-items: center;
-}
+#keyboard {
+  position: relative;
 
-.actions-left {
-  @extend %action;
-  left: 20px;
+  .numpad {
+    display: flex;
+    width: 80%;
+    margin: 0 auto;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .actions-left {
+    @extend %action;
+    left: 20px;
+  }
+
+  .actions-right {
+    @extend %action;
+    right: 20px;
+  }
 }

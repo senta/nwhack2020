@@ -1,9 +1,11 @@
 import React from 'react';
 import './Keyboard.scss';
 
+const handleClick = () => console.log("clicked");
+
 const Keyboard = () => {
   return (
-    <>
+    <section id="keyboard">
       <div className="numpad">
         <div>
           <button onClick={handleClick}>9</button>
@@ -32,7 +34,7 @@ const Keyboard = () => {
         <button>Add</button>
         <button>Remove</button>
       </div>
-    </>
+    </section>
   );
 };
 

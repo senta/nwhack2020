@@ -118,7 +118,7 @@ Emit this event before you emit =READY=, to adjust the data transfer lag.
 
 ** Ready
 
-When the player tapped "READY" or "START" button.
+When the player tapped "READY"
 
 *** event
 
@@ -128,19 +128,31 @@ When the player tapped "READY" or "START" button.
 
 null
 
-** Finish a Cell
+** Start (only available for game owner)
+
+When the owner tapped "START"
+
+*** event
+
+=PLAYER_START=
+
+*** payload
+
+null
+
+** Finish a line
 
 When the player finished a line.
 
 *** event
 
-=PLAYER_FINISH_CELL=
+=PLAYER_FINISH_LINE=
 
 *** payload
 
 #+begin_example
 {
-  cell: number # 0 to the final cell index 
+  line: number # from 0 to the final line
 }
 #+end_example
 
@@ -171,6 +183,21 @@ available attack options:
 
 
 * Socket (from server to client)
+
+** Game Ready
+
+When all players are "READY"
+
+*** event
+
+=GAME_READY=
+
+*** payload
+
+#+begin_example
+undefined
+#+end_example
+
 
 ** Game Start
 

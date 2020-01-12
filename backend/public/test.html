@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>test</title>
+  </head>
+  <body>
+    <pre><code id="id"></code></pre>
+    <div>
+      <button id="create">create a room</button>
+      <button id="start">start!</button>
+    </div>
+    <hr />
+    <div>
+      <input id="room" placeholder="room id" />
+      <button id="join">join</button>
+      <button id="ready">ready</button>
+    </div>
+    <hr />
+    <div>
+      <button id="finish">finish a line</button>
+      <select id="act">
+        <option value="multiply">multiply</option>
+        <option value="transfer">transfer</option>
+        <option value="add">add</option>
+        <option value="remove">remove</option>
+      </select>
+      <button id="action">action</button>
+    </div>
+    <script src="./socket.io.js"></script>
+    <script>
+      (function() {
+        const room = document.getElementById("room");
+        const socket = io("http://localhost:8080");
+        window.socket = socket;
+
+        socket.on('connect', () => {
+          document.getElementById('id').innerText = socket.id
+        })
+
+        setInterval(() => {
+          socket.emit("PLAYER_PING", { time: Date.now() });
+        }, 5000);
+
+        const events = [
+          "PLAYER_TIMEOVER",
+          "PLAYER_ATTACKED",
+          "PLAYER_STATE_SYNC",
+          "GAME_PLAYER_LEFT",
+          "GAME_PLAYER_JOINED",
+          "GAME_END",
+          "GAME_START",
+          "GAME_READY"
+        ];
+        for (const e of events) {
+          socket.on(e, console.log.bind(console, e));
+        }
+
+        document
+          .getElementById("create")
+          .addEventListener("click", async () => {
+            const res = await api("POST", "/api/room/", {
+              socket_id: socket.id,
+              lines: 10
+            });
+
+            room.value = res.body.room;
+            console.log(res);
+          });
+
+        document.getElementById("start").addEventListener("click", async () => {
+          socket.emit("PLAYER_START");
+
+          room.value = res.body.room;
+          console.log(res);
+        });
+
+        document.getElementById("join").addEventListener("click", async () => {
+          const room_id = room.value;
+          const res = await api("POST", `/api/room/${room_id}/join`, {
+            socket_id: socket.id
+          });
+
+          console.log(res);
+        });
+
+        document.getElementById("ready").addEventListener("click", async () => {
+          socket.emit("PLAYER_READY");
+        });
+
+        document
+          .getElementById("finish")
+          .addEventListener("click", async () => {
+            socket.emit("PLAYER_FINISH_LINE");
+          });
+
+        document
+          .getElementById("action")
+          .addEventListener("click", async () => {
+            socket.emit("PLAYER_ATTACK", {
+              action: document.getElementById("act").value
+            });
+          });
+      })();
+
+      async function api(method, path, payload = null) {
+        return await fetch(path, {
+          method: method,
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify(payload)
+        }).then(res => res.json());
+      }
+    </script>
+  </body>
+</html>

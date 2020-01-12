@@ -164,7 +164,8 @@ io.on("connect", socket => {
   socket.on("PLAYER_PING", ({ time }) => {
     logger.info(`player:${player.id}: ping`);
 
-    player.pingDelay.push(Date.now() - time);
+    const d = new Date()
+    player.pingDelay.push(d.getTime() - time);
     if (player.pingDelay.length > 5) {
       player.pingDelay.splice(0, player.pingDelay.length - 5);
     }
@@ -298,7 +299,8 @@ class Game {
 
     logger.info(`game:${this.id}: will be started`);
 
-    const start = Date.now() + 3000;
+    const d = new Date()
+    const start = d.getTime() + 3000;
     this.started = start;
 
     const multipliers = new Array(10).fill(null).map((_, i) => i);

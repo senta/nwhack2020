@@ -49,7 +49,8 @@ export async function leaveRoom(id) {
 }
 
 export function ping() {
-  socket.emit("PLAYER_PING", Date.now());
+  const d = new Date()
+  socket.emit("PLAYER_PING", d.getTime());
 }
 
 export function ready() {

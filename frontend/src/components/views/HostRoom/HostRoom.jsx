@@ -1,12 +1,15 @@
 import React from 'react';
-import {useSelector} from 'react-redux';
+import {useLocation} from 'react-router';
+import './HostRoom.scss';
 
 function HostRoom(){
+  const queryParams = new URLSearchParams(useLocation().search);
+  const id = queryParams.get('id');
   return(
-    <>
-      <p>{useSelector(state => state.roomId)}</p>
+    <div id="host-room">
+      <p>{id}</p>
       <button>Start</button>
-    </>
+    </div>
   )
 }
 

@@ -52,8 +52,8 @@ export const gameFinished = () => {
   return { type: GAME_FINISHED };
 };
 
-export const gameJoin = () => {
-  return { type: GAME_PLAYER_CHANGED };
+export const gameJoin = payload => {
+  return { type: GAME_PLAYER_CHANGED, payload };
 };
 
 export const sync = () => {

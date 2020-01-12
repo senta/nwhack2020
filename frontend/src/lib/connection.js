@@ -17,7 +17,7 @@ export async function createRoom() {
       socket_id: socket.id,
       lines: 10 // TODO: take a value from input?
     })
-    .then(res => window.location.assign(`/host/${res.data.body.room}`));
+    .then(res => window.location.assign(`/host?id=${res.data.body.room}`));
 
   if (status === 200) {
     store.dispatch(actions.roomCreated(body.room));

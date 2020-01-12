@@ -1,0 +1,276 @@
+#+startup: showall
+
+* REST API
+
+endpoint: =/api=
+
+** Create a room
+
+*** Request
+
+=POST /room=
+
+#+begin_example
+{
+  lines: number
+}
+#+end_example
+
+*** Response
+
+#+begin_example
+{
+  status: 200 | 500 | number
+  body: {
+    room: stringx
+  }
+}
+#+end_example
+
+
+** Join to a room
+
+*** Request
+
+=POST /rooms/:room_id/join=
+
+#+begin_example
+{
+  socket_id: string # socket.id
+  name: string
+}
+#+end_example
+
+
+*** Response
+
+#+begin_example
+{
+  status: 200 | 500 | number
+  body: TBD
+}
+#+end_example
+
+
+** Leave the room
+
+*** Request
+
+=POST /rooms/:room_id/leave=
+
+#+begin_example
+{
+  socket_id: string # socket.id
+}
+#+end_example
+
+
+*** Response
+
+#+begin_example
+{
+  status: 200 | 500 | number
+  body: TBD
+}
+#+end_example
+
+
+* Socket (from client to server)
+
+** Ping
+
+Emit this event before you emit =READY=, to adjust the data transfer lag.
+
+*** event
+
+=PLAYER_PING=
+
+*** payload
+
+#+begin_example
+{
+  time: timestamp
+}
+#+end_example
+
+** Ready
+
+When the player tapped "READY" or "START" button.
+
+*** event
+
+=PLAYER_READY=
+
+*** payload
+
+null
+
+** Finish Line
+
+When the player finished a line.
+
+*** event
+
+=PLAYER_FINISH_LINE=
+
+*** payload
+
+TBD
+
+** Attack
+
+When player choose the action.
+
+*** event
+
+=PLAYER_ATTACK=
+
+*** payload
+
+#+begin_example
+{
+  acton: string
+  to: string # socket.id Do we really need this?
+}
+#+end_example
+
+available attack options:
+
+- =multiply=: Multiply all of the numbers in the specific player's board permanently.
+- =transfer=: Prevent an attack on yourself and transfer it to a different player
+- =add=: Add an extra 1/2 Row to all players in the board
+- =remove=: Remove 1 row from yourself
+
+
+* Socket (from server to client)
+
+** Game Start
+
+When the owner choose to start.
+
+*** event
+
+=GAME_START=
+
+*** payload
+
+#+begin_example
+{
+  time: number (timestamp)
+  multipliers: number[]
+  goal: number
+  players: [
+    {
+      progress: 0
+      attacked: {
+        multiply: false
+        transfer: false
+        add: false
+        remove: false
+      }
+    }
+  ]
+}
+#+end_example
+
+** Game End
+
+A player finished the final line.
+
+*** event
+
+=GAME_END=
+
+*** payload
+
+#+begin_example
+[
+  {
+    progress: 0
+    attacked: {
+      multiply: false
+      transfer: false
+      add: false
+      remove: false
+    }
+  }
+]
+#+end_example
+
+** Game Player Joined/Left
+
+*** event
+
+=GAME_PLAYER_JOINED=
+=GAME_PLAYER_LEFT=
+
+*** payload
+
+#+begin_example
+{
+  players: [
+    {
+      socket_id: string
+      name: string
+    }
+  ]
+#+end_example
+
+** Other Player State Change
+
+*** event
+
+=PLAYER_ATTACKED=
+
+*** payload
+
+#+begin_example
+{
+  time: number (timestamp)
+  multipliers: number[]
+  goal: number
+  players: [
+    {
+      progress: 0
+      attacked: {
+        multiply: false
+        transfer: false
+        add: false
+        remove: false
+      }
+    }
+  ]
+}
+#+end_example
+
+** Attacked From Other Player
+
+*** event
+
+=PLAYER_ATTACKED=
+
+- =multiply=: Multiply all of the numbers in the specific player's board permanently.
+- =transfer=: Prevent an attack on yourself and transfer it to a different player
+- =add=: Add an extra 1/2 Row to all players in the board
+- =remove=: Remove 1 row from yourself
+
+*** payload
+
+#+begin_example
+{
+  acton: string
+  from: string # socket.id Do we really need this?
+}
+#+end_example
+
+** Time Over
+
+Players who do not reach a specific line by the time limit will be disqualified.
+
+*** event
+
+=PLAYER_TIMEOVER=
+
+*** payload
+
+null

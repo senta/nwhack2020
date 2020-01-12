@@ -35,7 +35,8 @@ export async function joinRoom(id) {
     .then(res => res.data);
 
   if (status === 200) {
-    store.dispatch(actions.roomJoined(body.room));
+    // store.dispatch(actions.roomJoined(body.room));
+    window.location.assign(`/player/${id}`)
   }
 }
 

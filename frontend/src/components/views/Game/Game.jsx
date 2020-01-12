@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { useSelector } from 'react-redux';
 import PlayerField from './PlayerField/PlayerField';
 import OpponentFieldMap from './OpponentFieldMap/OpponentFieldMap';
 import Keyboard from './Keyboard/Keyboard';

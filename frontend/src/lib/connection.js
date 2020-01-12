@@ -82,7 +82,7 @@ export function finishLine() {
  * @param {"multiply" | "transfer" | "add" | "remove"} attack
  */
 export function attack(action) {
-  socket.emit("PLAYER_FINISH_LINE", { action });
+  socket.emit("PLAYER_ATTACK", { action });
 }
 
 socket.on("connect", () => heartbeat.start());

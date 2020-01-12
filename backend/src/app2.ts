@@ -318,7 +318,7 @@ class Game {
 
       logger.info(`game:${this.id}: notify game start to ${player.id}`);
       conn.emit("GAME_START", {
-        time: start + delay,
+        time: 3000 + delay,
         multipliers: [...multipliers],
         players: this.players
       });

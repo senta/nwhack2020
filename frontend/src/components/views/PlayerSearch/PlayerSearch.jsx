@@ -12,7 +12,6 @@ function PlayerSearch(){
       {failure ? <p>Room doesn't exist</p> : null}
       <form method='post' action={`/rooms/${id}/join`}>
         <input onChange={(event) => setName(event.target.value)} name='name' type='text' placeholder='Pick a name' value={name}/>
-        <input onChange={(event) => setId(event.target.value)} name='id' type='text' placeholder='Enter room code' value={id}/>
         <button type='submit' disabled={!id}>Join</button>
       </form>
     </div>

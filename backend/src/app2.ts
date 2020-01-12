@@ -79,9 +79,9 @@ type AttackAction = "multiply" | "transfer" | "add" | "remove";
 // ----------------------------------------------------
 // REST API
 // no validation, no authorization. *I have no time.*
-rest.put("api/player/:id/profile", (req, res) => {
-  const { socket_id, name } = req.body;
-  const player = players.get(socket_id)!;
+rest.post("/api/player/:id/profile", (req, res) => {
+  const { name } = req.body;
+  const player = players.get(req.params.id)!;
   player.name = name;
 
   res.json({
@@ -174,6 +174,10 @@ io.on("connect", socket => {
   socket.on("PLAYER_READY", () => {
     const game = playerGame.get(player.id);
     if (!game) {
+      for (const [k, g] of playerGame.entries()) {
+        console.log(k, g.id)
+      }
+      console.log(playerGame.size)
       throw new Error("no game!!");
     }
     game.ready(player);

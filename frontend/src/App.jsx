@@ -1,6 +1,9 @@
 import React from 'react';
-import {Switch, Route, BrowserRouter as Router} from 'react-router-dom';
+import {Router} from 'react-router';
+import {Switch, Route} from 'react-router-dom';
 import {Provider} from 'react-redux';
+
+import {history} from './lib/history'
 
 import store from './store';
 
@@ -11,7 +14,7 @@ import PlayerSearch from './components/views/PlayerSearch/PlayerSearch.jsx';
 
 function App() {
   return (
-    <Router>
+    <Router history={history}>
     <Provider store={store}>
       <Switch>
         <Route path="/play">

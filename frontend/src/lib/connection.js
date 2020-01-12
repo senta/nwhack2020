@@ -4,6 +4,7 @@ import io from "socket.io-client";
 import heartbeat from "./heartbeat";
 import store from "../store";
 import * as actions from "../actions";
+import { history } from "./history";
 
 export const socket = io("http://localhost:8080/");
 
@@ -17,9 +18,10 @@ export async function createRoom() {
       socket_id: socket.id,
       lines: 10 // TODO: take a value from input?
     })
-    .then(res => window.location.assign(`/host/${res.data.body.room}`));
+    .then(res => res.data);
 
   if (status === 200) {
+    history.push(`/host/${body.room}`);
     store.dispatch(actions.roomCreated(body.room));
   }
 }
@@ -35,8 +37,9 @@ export async function joinRoom(id) {
     .then(res => res.data);
 
   if (status === 200) {
+    history.push(`/player/${id}`);
     // store.dispatch(actions.roomJoined(body.room));
-    window.location.assign(`/player/${id}`)
+    // window.location.assign(`/player/${id}`);
   }
 }
 
@@ -49,8 +52,17 @@ export async function leaveRoom(id) {
   });
 }
 
+/**
+ * @param {string} name
+ */
+export async function setProfile(name) {
+  return rest.post(`/player/${socket.id}/profile`, {
+    name
+  });
+}
+
 export function ping() {
-  const d = new Date()
+  const d = new Date();
   socket.emit("PLAYER_PING", d.getTime());
 }
 

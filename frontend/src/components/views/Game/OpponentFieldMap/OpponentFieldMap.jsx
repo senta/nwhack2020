@@ -1,11 +1,14 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
+
 import './OpponentFieldMap.scss';
 
-const OpponentFieldMap = (props) => {
-  const players = props.gameState.players.map((player,index) => <Opponent key={index} player={player}/>);
+const OpponentFieldMap = () => {
+  const players = useSelector(state => state.players);
+  const playersMarkup = players.map((player,index) => <Opponent key={index} player={player}/>);
   return (
     <div id="minimap">
-      {players}
+      {playersMarkup}
     </div>
   );
 };

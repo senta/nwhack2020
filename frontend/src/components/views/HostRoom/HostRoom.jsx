@@ -10,7 +10,7 @@ function HostRoom(){
   const id = queryParams.get('id');
   return(
     <>
-      <p>{useSelector(state => state.roomId)}</p>
+      <p>{id}</p>
       <button onClick={start}>Start</button>
     </>
   )

@@ -88,7 +88,10 @@ export function attack(action) {
 socket.on("connect", () => heartbeat.start());
 socket.on("disconnect", () => heartbeat.stop());
 
-socket.on("GAME_START", payload => store.dispatch(actions.gameWillStart(payload)));
+socket.on("GAME_START", payload => {
+  store.dispatch(actions.gameWillStart(payload))
+  history.push(`/play`);
+});
 socket.on("GAME_END", payload => store.dispatch(actions.gameFinished(payload)));
 
 socket.on("GAME_PLAYER_JOINED", payload => store.dispatch(actions.gameJoin(payload)));

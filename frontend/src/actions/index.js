@@ -57,7 +57,7 @@ export const gameJoin = payload => {
 };
 
 export const sync = payload => {
-  return { type: GAME_STATE_SYNC };
+  return { type: GAME_STATE_SYNC, payload };
 };
 
 export const attacked = payload => {

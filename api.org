@@ -157,16 +157,15 @@ When the owner choose to start.
 #+begin_example
 {
   time: number (timestamp)
-  multipliers: number[]
-  goal: number
+  multipliers: number[][]
   players: [
     {
       progress: 0
-      attacked: {
-        multiply: false
+      state: {
+        multiply: number
         transfer: false
-        add: false
-        remove: false
+        add: number
+        remove: number
       }
     }
   ]

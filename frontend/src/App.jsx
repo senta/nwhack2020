@@ -23,14 +23,26 @@ const dummy = {
     {
       lastLine: 10,
       name: "Shota",
-      progress: 3,
+      progress: 7,
       state: {
         multiply: 0,
         transfer: false,
         add: 2,
         remove: 1
       }
+    },
+    {
+      lastLine: 10,
+      name: "Isao",
+      progress: 3,
+      state: {
+        multiply: 2,
+        transfer: true,
+        add: 0,
+        remove: 5
+      }
     }
+
   ]
 }
 

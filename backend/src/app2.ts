@@ -397,6 +397,7 @@ class Game {
 
     const conn = io.sockets.connected[player.id];
     conn.emit("PLAYER_TIMEOVER");
+    this.leave(player)
     this.handleStateChanged();
   }
 

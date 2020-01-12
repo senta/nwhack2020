@@ -3,7 +3,10 @@ import './Keyboard.scss';
 
 const handleClick = () => console.log("clicked");
 
-const Keyboard = () => {
+const Keyboard = (props) => {
+  const action = (event) => {
+    return () => props.socket.emit('PLAYER_ATTACK', {action: event, to: props.id});
+  }
   return (
     <section id="keyboard">
       <div className="numpad">
@@ -27,12 +30,12 @@ const Keyboard = () => {
         </div>
       </div>
       <div className="actions-left">
-        <button>Multiply</button>
-        <button>Transfer</button>
+        <button onClick={action('multiply')}>Multiply</button>
+        <button onClick={action('transfer')}>Transfer</button>
       </div>
       <div className="actions-right">
-        <button>Add</button>
-        <button>Remove</button>
+        <button onClick={action('add')}>Add</button>
+        <button onClick={action('remove')}>Remove</button>
       </div>
     </section>
   );

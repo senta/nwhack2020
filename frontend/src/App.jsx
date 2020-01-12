@@ -1,15 +1,18 @@
 import React from 'react';
+import { Provider } from "react-redux";
+
+import store from './store';
 import PlayerField from './components/views/PlayerField/PlayerField';
 import OpponentFieldMap from './components/views/OpponentFieldMap/OpponentFieldMap';
 import Keyboard from './components/views/Keyboard/Keyboard';
 
 function App() {
   return (
-    <div className="App">
+    <Provider store={store}>
       <PlayerField />
       <OpponentFieldMap />
-      <Keyboard/>
-    </div>
+      <Keyboard />
+    </Provider>
   );
 }
 

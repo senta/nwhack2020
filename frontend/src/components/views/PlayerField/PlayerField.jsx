@@ -1,41 +1,40 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { useSelector } from 'react-redux';
 import './PlayerField.scss';
 
 const PlayerField = () => {
-  const [rowNum, setRowNum] = useState(10);
-  const [colNum, setColNum] = useState(10);
-
-  const generateRows = (num) => {
-    let rows = [];
-    for (let i = 0; i < num; i++) {
-      rows.push(
-        <tr>
-          {generateColmns(colNum)}
-        </tr>
-      );
-    }
-    return rows;
-  };
-
-  const generateColmns = (num) => {
-    let colmns = [];
-    for (let i = 0; i < num; i++) {
-      colmns.push(
-        <td>
-          <div>
-            <input type="text" />
-          </div>
-        </td>
-      );
-    }
-    return colmns;
-  };
+  const input = useSelector(state => state.input);
+  const xNums = useSelector(state => state.xNums);
+  const yNums = useSelector(state => state.yNums);
 
   return (
     <div className="player-field">
       <table>
         <tbody>
-          {generateRows(rowNum)}
+          <tr>
+            <td></td>
+            {
+              xNums.map((xNum) => (
+                <td>
+                  <div>{xNum}</div>
+                </td>
+              ))
+            }
+          </tr>
+          {
+            yNums.map((yNum) => (
+              <tr>
+                <td>{yNum}</td>
+                {
+                  xNums.map((xNum) => (
+                    <td>
+                      <div></div>
+                    </td>
+                  ))
+                }
+              </tr>
+            ))
+          }
         </tbody>
       </table>
     </div>

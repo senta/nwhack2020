@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { setInput, moveCoordinate } from '../../../actions'
+import { setInput, moveCoordinate } from '../../../../actions'
 import './Keyboard.scss';
 
 const Keyboard = (props) => {

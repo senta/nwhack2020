@@ -6,6 +6,23 @@ const PlayerField = () => {
   const coordinate = useSelector(state => state.coordinate);
   const xNums = useSelector(state => state.xNums);
   const yNums = useSelector(state => state.yNums);
+  const { x, y } = useSelector(state => state.coordinate);
+
+  const displayNumber = (yIndex, xIndex) => {
+    if (yIndex === y) {
+      if (xIndex === x) { // current column
+        return input;
+      } else if (xIndex < x) { // columns in the current row bedore the current column
+        return xNums[xIndex] * yNums[yIndex];
+      } else { // columns in the current row after the current column
+        return '';
+      }
+    } else if (yIndex < y) { // columns before the current column
+      return xNums[xIndex] * yNums[yIndex]
+    } else { // columns after the current column
+      return '';
+    }
+  };
 
   return (
     <div className="player-field">
@@ -26,13 +43,13 @@ const PlayerField = () => {
               <tr key={yIndex}>
                 <td>{yNum}</td>
                 {
-                  xNums.map((xNum, xIndex) => {
-                    return (
-                      <td key={xIndex}>
-                        <div>{(coordinate.y > yIndex || (coordinate.x > xIndex && coordinate.y === yIndex)) ? yNum * xNum : null}</div>
-                      </td>
-                    )
-                  })
+                  xNums.map((xNum, xIndex) => (
+                    <td key={xIndex}>
+                      <div>
+                        {displayNumber(yIndex, xIndex)}
+                      </div>
+                    </td>
+                  ))
                 }
               </tr>
             ))

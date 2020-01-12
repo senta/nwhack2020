@@ -302,6 +302,7 @@ class Game {
     }
 
     logger.info(`game:${this.id}: will be started`);
+    this.state = 'playing'
 
     const d = new Date()
     const start = d.getTime() + 3000;
@@ -401,6 +402,8 @@ class Game {
 
   private win(player: Player) {
     logger.info(`game:${this.id}: ${player.id} won!`);
+
+    this.state = 'finished'
 
     this.sockets.to(this.id).emit("GAME_END", {
       winner: player

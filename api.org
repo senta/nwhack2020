@@ -4,6 +4,28 @@
 
 endpoint: =/api=
 
+** Set Player Profile
+
+*** Request
+
+=PUT /player/:id/profile=
+
+#+begin_example
+{
+  name: string
+}
+#+end_example
+
+*** Response
+
+#+begin_example
+{
+  status: 200 | 500 | number
+  body: TBD
+}
+#+end_example
+
+
 ** Create a room
 
 *** Request
@@ -12,6 +34,7 @@ endpoint: =/api=
 
 #+begin_example
 {
+  socket_id: string # socket.id
   lines: number
 }
 #+end_example
@@ -22,7 +45,7 @@ endpoint: =/api=
 {
   status: 200 | 500 | number
   body: {
-    room: stringx
+    room: string
   }
 }
 #+end_example
@@ -105,17 +128,22 @@ When the player tapped "READY" or "START" button.
 
 null
 
-** Finish Line
+** Finish a Cell
 
 When the player finished a line.
 
 *** event
 
-=PLAYER_FINISH_LINE=
+=PLAYER_FINISH_CELL=
 
 *** payload
 
-TBD
+#+begin_example
+{
+  cell: number # 0 to the final cell index 
+}
+#+end_example
+
 
 ** Attack
 
@@ -157,16 +185,15 @@ When the owner choose to start.
 #+begin_example
 {
   time: number (timestamp)
-  multipliers: number[]
-  goal: number
+  multipliers: number[][]
   players: [
     {
       progress: 0
-      attacked: {
-        multiply: false
+      state: {
+        multiply: number
         transfer: false
-        add: false
-        remove: false
+        add: number
+        remove: number
       }
     }
   ]
@@ -186,7 +213,8 @@ A player finished the final line.
 #+begin_example
 [
   {
-    progress: 0
+    progress: number
+    lastLine: number
     attacked: {
       multiply: false
       transfer: false
@@ -220,18 +248,16 @@ A player finished the final line.
 
 *** event
 
-=PLAYER_ATTACKED=
+=PLAYER_STATE_SYNC=
 
 *** payload
 
 #+begin_example
 {
-  time: number (timestamp)
-  multipliers: number[]
-  goal: number
   players: [
     {
-      progress: 0
+      progress: number
+      lastLine: number
       attacked: {
         multiply: false
         transfer: false

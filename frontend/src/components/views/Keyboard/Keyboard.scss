@@ -7,8 +7,8 @@
 
   button {
     margin-bottom: 10px;
-    width: 80px;
-    height: 80px;
+    width: 60px;
+    height: 60px;
     border-radius: 50px;
     border: 1px solid black;
   }
@@ -40,11 +40,11 @@
 
   .actions-left {
     @extend %action;
-    left: 40px;
+    left: 10px;
   }
 
   .actions-right {
     @extend %action;
-    right: 40px;
+    right: 10px;
   }
 }

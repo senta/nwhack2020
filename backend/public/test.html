@@ -33,7 +33,7 @@
     <script>
       (function() {
         const room = document.getElementById("room");
-        const socket = io("http://localhost:3000");
+        const socket = io("http://localhost:8080");
         window.socket = socket;
 
         socket.on('connect', () => {

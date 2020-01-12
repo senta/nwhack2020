@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import './PlayerField.scss';
 
 const PlayerField = () => {
-  const coordinate = useSelector(state => state.coordinate);
+  const input = useSelector(state => state.input);
   const xNums = useSelector(state => state.xNums);
   const yNums = useSelector(state => state.yNums);
   const { x, y } = useSelector(state => state.coordinate);

@@ -6,7 +6,7 @@ class HeatBeat {
   timer = -1;
 
   start() {
-    this.timer = setTimeout(() => this._tick, DURATION);
+    this.timer = setTimeout(() => this._tick(), DURATION);
   }
 
   stop() {
@@ -17,7 +17,7 @@ class HeatBeat {
 
   _tick() {
     ping()
-    this.timer = setTimeout(() => this._tick, DURATION);
+    this.timer = setTimeout(() => this._tick(), DURATION);
   }
 }
 

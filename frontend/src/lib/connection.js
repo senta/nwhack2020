@@ -71,7 +71,7 @@ export function ready() {
 }
 
 export function start() {
-  socket.emit("PLAYER_READY");
+  socket.emit("PLAYER_START");
 }
 
 export function finishLine() {

@@ -32,7 +32,7 @@ const Opponent = (props) => {
           <tr className='empty'>{cells}</tr>
         </tbody>
       </table>
-      <span id="last-line">{finishLine}</span>
+      <span id="last-line">{finishLine ? finishLine : null}</span>
     </div>
   );
 }

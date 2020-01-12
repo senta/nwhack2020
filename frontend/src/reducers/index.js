@@ -38,7 +38,7 @@ const rootReducer = (store = initialValue, action) => {
         input: '',
         coordinate: { x, y }
       };
-    case actions.GAME_START:
+    case actions.GAME_WILL_START:
       return {
         ...store,
         players: action.payload.players,

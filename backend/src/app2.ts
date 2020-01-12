@@ -414,7 +414,7 @@ class Game {
   }
 
   private startTimer(): void {
-    setTimeout(this.handleTimout.bind(this), 1000 * 15);
+    // setTimeout(this.handleTimout.bind(this), 1000 * 15);
   }
 
   private handleStateChanged(): void {
@@ -445,25 +445,25 @@ class Game {
     });
   }
 
-  private handleTimout(): void {
-    if (this.state !== "playing") {
-      logger.info(`game:${this.id}: time ticked. not playing.`);
-      return;
-    }
-    logger.info(`game:${this.id}: time ticked.`);
+  // private handleTimout(): void {
+  //   if (this.state !== "playing") {
+  //     logger.info(`game:${this.id}: time ticked. not playing.`);
+  //     return;
+  //   }
+  //   logger.info(`game:${this.id}: time ticked.`);
 
-    const lines = this.lines;
-    const survivors = this.players.filter(x => !x.state.ko);
-    survivors.sort((a, b) => {
-      const ax = lines + a.state.add - a.state.remove - a.progress;
-      const bx = lines + b.state.add - b.state.remove - b.progress;
-      return bx - ax;
-    });
+  //   const lines = this.lines;
+  //   const survivors = this.players.filter(x => !x.state.ko);
+  //   survivors.sort((a, b) => {
+  //     const ax = lines + a.state.add - a.state.remove - a.progress;
+  //     const bx = lines + b.state.add - b.state.remove - b.progress;
+  //     return bx - ax;
+  //   });
 
-    logger.info(`game:${this.id}: survivors: ${survivors.length}`);
-    logger.info(`game:${this.id}: worst: ${survivors[0].id}`);
+  //   logger.info(`game:${this.id}: survivors: ${survivors.length}`);
+  //   logger.info(`game:${this.id}: worst: ${survivors[0].id}`);
 
-    this.timeOver(survivors[0]);
-    setTimeout(this.handleTimout.bind(this), 1000 * 15);
-  }
+  //   this.timeOver(survivors[0]);
+  //   setTimeout(this.handleTimout.bind(this), 1000 * 15);
+  // }
 }

@@ -13,7 +13,7 @@ export const rest = axios.create({
 
 export async function createRoom() {
   const { status, body } = await rest
-    .post("/api/room", {
+    .post("/room", {
       socket_id: socket.id,
       lines: 10 // TODO: take a value from input?
     })
@@ -29,7 +29,7 @@ export async function createRoom() {
  */
 export async function joinRoom(id) {
   const { status, body } = await rest
-    .post(`/api/room/${id}/join`, {
+    .post(`/room/${id}/join`, {
       socket_id: socket.id
     })
     .then(res => res.data.body);
@@ -43,7 +43,7 @@ export async function joinRoom(id) {
  * @param {string} id room id
  */
 export async function leaveRoom(id) {
-  return rest.post(`/api/room/${id}/leave`, {
+  return rest.post(`/room/${id}/leave`, {
     socket_id: socket.id
   });
 }

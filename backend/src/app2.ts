@@ -11,6 +11,14 @@ import { createId } from "./utils/string";
 const rest = express();
 rest.use(bodyParser.json());
 rest.use(express.static("public"));
+rest.use((req, res, next) => {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-With, Content-Type, Accept"
+  );
+  next();
+});
 
 const server = http.createServer(rest);
 const io = socketio(server);
@@ -229,7 +237,7 @@ class Game {
   ) {
     this.id = createId();
     logger.info(`game:${this.id}: created by ${owner.id}`);
-    this.join(owner)
+    this.join(owner);
     owner.readied = true;
   }
 
@@ -281,7 +289,7 @@ class Game {
 
   public start(): void {
     for (const x of this.players) {
-      console.log(x.id, x.readied)
+      console.log(x.id, x.readied);
     }
     if (!this.players.every(x => x.readied)) {
       logger.info(`game:${this.id}: someone tried to start`);
@@ -408,13 +416,11 @@ class Game {
     }
 
     const lines = this.lines;
-    const winner = survivors.find(
-      x => {
-        console.log(x)
-        console.log(x.id, lines + x.state.add - x.state.remove - x.progress)
-        return lines + x.state.add - x.state.remove - x.progress < 1
-      }
-    );
+    const winner = survivors.find(x => {
+      console.log(x);
+      console.log(x.id, lines + x.state.add - x.state.remove - x.progress);
+      return lines + x.state.add - x.state.remove - x.progress < 1;
+    });
     if (winner) {
       this.win(winner);
       return;

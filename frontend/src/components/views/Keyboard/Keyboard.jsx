@@ -5,28 +5,29 @@ import './Keyboard.scss';
 
 const Keyboard = (props) => {
   const action = (event) => {
-    return () => props.socket.emit('PLAYER_ATTACK', {action: event, to: props.id});
+    return () => props.socket.emit('PLAYER_ATTACK', { action: event, to: props.id });
   }
   const input = useSelector(state => state.input);
   const xNums = useSelector(state => state.xNums);
   const yNums = useSelector(state => state.yNums);
-  const { xAxis, yAxis } = useSelector(state => state.coordinate);
-  const answer = (xNums[xAxis] * yNums[yAxis]).toString();
+  const { x, y } = useSelector(state => state.coordinate);
+  const answer = (xNums[x] * yNums[y]).toString();
 
   const dispatch = useDispatch();
 
   const handleClick = (value) => {
-    const inputDigit = value.length;
-    if (answer.toString().length > 1 && answer.toString().length > inputDigit) {
-      if (value === answer.slice(inputDigit - 1)) {
-        return dispatch(setInput(input + value));
+    return function () {
+      const inputDigit = input.length;
+      if (answer.toString().length > 1 && answer.toString().length > inputDigit) {
+        if (value === answer.charAt(input.length)) {
+          return input + value === answer ? dispatch(moveCoordinate()) : dispatch(setInput(input + value));
+        } else {
+          return dispatch(setInput(''));
+        }
       } else {
-        return dispatch(setInput(''));
-      }
-    } else {
-      if (input + value === answer) {
-        dispatch(setInput(input + value));
-        dispatch(moveCoordinate());
+        if (input + value === answer) {
+          dispatch(moveCoordinate());
+        }
       }
     }
   };

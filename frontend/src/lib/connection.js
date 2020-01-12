@@ -4,6 +4,7 @@ import io from "socket.io-client";
 import heartbeat from "./heartbeat";
 import store from "../store";
 import * as actions from "../actions";
+import { history } from "./history";
 
 export const socket = io("http://localhost:8080/");
 
@@ -17,9 +18,10 @@ export async function createRoom() {
       socket_id: socket.id,
       lines: 10 // TODO: take a value from input?
     })
-    .then(res => window.location.assign(`/host?id=${res.data.body.room}`));
+    .then(res => res.data);
 
   if (status === 200) {
+    history.push(`/host/${body.room}`);
     store.dispatch(actions.roomCreated(body.room));
   }
 }
@@ -35,8 +37,9 @@ export async function joinRoom(id) {
     .then(res => res.data);
 
   if (status === 200) {
+    history.push(`/player/${id}`);
     // store.dispatch(actions.roomJoined(body.room));
-    window.location.assign(`/player/${id}`)
+    // window.location.assign(`/player/${id}`);
   }
 }
 
@@ -49,8 +52,17 @@ export async function leaveRoom(id) {
   });
 }
 
+/**
+ * @param {string} name
+ */
+export async function setProfile(name) {
+  return rest.post(`/player/${socket.id}/profile`, {
+    name
+  });
+}
+
 export function ping() {
-  const d = new Date()
+  const d = new Date();
   socket.emit("PLAYER_PING", d.getTime());
 }
 
@@ -59,7 +71,7 @@ export function ready() {
 }
 
 export function start() {
-  socket.emit("PLAYER_READY");
+  socket.emit("PLAYER_START");
 }
 
 export function finishLine() {
@@ -76,13 +88,13 @@ export function attack(action) {
 socket.on("connect", () => heartbeat.start());
 socket.on("disconnect", () => heartbeat.stop());
 
-socket.on("GAME_START", payload => actions.gameWillStart(payload));
-socket.on("GAME_END", payload => actions.gameFinished(payload));
+socket.on("GAME_START", payload => store.dispatch(actions.gameWillStart(payload)));
+socket.on("GAME_END", payload => store.dispatch(actions.gameFinished(payload)));
 
-socket.on("GAME_PLAYER_JOINED", payload => actions.gameJoin(payload));
-socket.on("GAME_PLAYER_LEFT", payload => actions.gameJoin(payload));
+socket.on("GAME_PLAYER_JOINED", payload => store.dispatch(actions.gameJoin(payload)));
+socket.on("GAME_PLAYER_LEFT", payload => store.dispatch(actions.gameJoin(payload)));
 
-socket.on("PLAYER_STATE_SYNC", payload => actions.sync(payload));
-socket.on("PLAYER_ATTACKED", payload => actions.attacked(payload));
+socket.on("PLAYER_STATE_SYNC", payload => store.dispatch(actions.sync(payload)));
+socket.on("PLAYER_ATTACKED", payload => store.dispatch(actions.attacked(payload)));
 
-socket.on("PLAYER_TIMEOVER", payload => actions.timeover(payload));
+socket.on("PLAYER_TIMEOVER", payload => store.dispatch(actions.timeover(payload)));

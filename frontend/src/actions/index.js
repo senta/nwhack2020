@@ -56,7 +56,7 @@ export const gameJoin = payload => {
   return { type: GAME_PLAYER_CHANGED, payload };
 };
 
-export const sync = () => {
+export const sync = payload => {
   return { type: GAME_STATE_SYNC };
 };
 

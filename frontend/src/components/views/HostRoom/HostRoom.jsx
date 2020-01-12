@@ -2,14 +2,17 @@ import React from 'react';
 import {useLocation} from 'react-router';
 import './HostRoom.scss';
 
+import { start } from "../../../lib/connection";
+
+
 function HostRoom(){
   const queryParams = new URLSearchParams(useLocation().search);
   const id = queryParams.get('id');
   return(
-    <div id="host-room">
-      <p>{id}</p>
-      <button>Start</button>
-    </div>
+    <>
+      <p>{useSelector(state => state.roomId)}</p>
+      <button onClick={start}>Start</button>
+    </>
   )
 }
 

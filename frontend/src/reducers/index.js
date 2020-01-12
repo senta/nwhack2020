@@ -38,6 +38,43 @@ const rootReducer = (store = initialValue, action) => {
         input: '',
         coordinate: { x, y }
       };
+    case actions.GAME_START:
+      return {
+        ...store,
+        players: action.payload.players,
+        xNums: action.payload.multipliers[0],
+        yNums: action.payload.multipliers[1],
+        room: {
+          id: action.payload.time,
+          startat: action.payload.time,
+          winner: null,
+          state: 'playing'
+        }
+      };
+    case actions.GAME_FINISHED:
+      return {
+        ...store,
+        room: {
+          id: null,
+          startat: -1,
+          winner: null,
+          state: 'finished'
+        }
+      };
+    case actions.GAME_PLAYER_CHANGED:
+    case actions.GAME_STATE_SYNC:
+      return {
+        ...store,
+        players: action.payload.players
+      };
+    case actions.GAME_PLAYER_ATTACKED:
+      return {
+        ...store
+      };
+    case actions.GAME_PLAYER_TIMEOVER:
+      return {
+        ...store
+      };
     default:
       return store;
   }

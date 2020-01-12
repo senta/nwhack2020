@@ -397,7 +397,6 @@ class Game {
 
     const conn = io.sockets.connected[player.id];
     conn.emit("PLAYER_TIMEOVER");
-    this.leave(player)
     this.handleStateChanged();
   }
 
@@ -440,8 +439,9 @@ class Game {
     logger.info({
       players: this.players
     });
+
     this.sockets.to(this.id).emit("PLAYER_STATE_SYNC", {
-      players: this.players
+      players: survivors
     });
   }
 

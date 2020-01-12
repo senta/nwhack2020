@@ -1,0 +1,14 @@
+#player-search {
+  width: 90%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 100px;
+
+  form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+}

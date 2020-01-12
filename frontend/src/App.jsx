@@ -4,7 +4,7 @@ import {Switch, Route, BrowserRouter as Router} from 'react-router-dom';
 import Game from './components/views/Game/Game.jsx';
 import Landing from './components/views/Landing/Landing.jsx';
 import HostRoom from './components/views/HostRoom/HostRoom.jsx';
-import PlayerRoom from './components/views/PlayerRoom/PlayerRoom.jsx';
+import PlayerSearch from './components/views/PlayerSearch/PlayerSearch.jsx';
 
 function App() {
   return (
@@ -17,7 +17,7 @@ function App() {
           <HostRoom/>
         </Route>
         <Route path="/player">
-          <PlayerRoom/>
+          <PlayerSearch/>
         </Route>
         <Route path='/'>
           <Landing/>

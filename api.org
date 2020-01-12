@@ -213,7 +213,8 @@ A player finished the final line.
 #+begin_example
 [
   {
-    progress: 0
+    progress: number
+    lastLine: number
     attacked: {
       multiply: false
       transfer: false
@@ -255,7 +256,8 @@ A player finished the final line.
 {
   players: [
     {
-      progress: 0
+      progress: number
+      lastLine: number
       attacked: {
         multiply: false
         transfer: false

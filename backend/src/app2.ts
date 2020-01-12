@@ -201,8 +201,8 @@ io.on("connect", socket => {
   });
 });
 
-server.listen(3000, "0.0.0.0", () => {
-  console.log(`Server is running on http://3000/`);
+server.listen(8080, "0.0.0.0", () => {
+  console.log(`Server is running on http://127.0.0.1:8080/`);
 });
 
 class Game {

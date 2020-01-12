@@ -1,0 +1,48 @@
+#minimap {
+  display: flex;
+  justify-content: space-around;
+  width: 90%;
+  margin: 0 auto;
+  margin-bottom: 30px;
+
+  div {
+    width: 30%;
+    position: relative;
+
+    #multiplier {
+      font-size: 0.7em;
+      position: absolute;
+      right: 3px;
+      top: 3px;
+    }
+
+    #last-line {
+      font-size: 0.7em;
+      position: absolute;
+      left: 3px;
+      bottom: -15px;
+    }
+
+    h2 {
+      text-align: center;
+      margin: 0;
+      font-size: 0.9em;
+      margin-bottom: 5px;
+    }
+
+    table {
+      border-spacing: 0;
+      width: 100%;
+
+      td {
+        width: 10%;
+        height: 9px;
+        border: 1px solid black;
+      }
+
+      .complete td {
+        background-color: grey;
+      }
+    }
+  }
+}

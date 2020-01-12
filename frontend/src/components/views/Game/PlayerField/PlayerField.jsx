@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import './PlayerField.scss';
 
 const PlayerField = () => {
-  const input = useSelector(state => state.input);
+  const coordinate = useSelector(state => state.coordinate);
   const xNums = useSelector(state => state.xNums);
   const yNums = useSelector(state => state.yNums);
   const { x, y } = useSelector(state => state.coordinate);
@@ -24,40 +24,40 @@ const PlayerField = () => {
     }
   };
 
-return (
-  <div className="player-field">
-    <table>
-      <tbody>
-        <tr>
-          <td></td>
+  return (
+    <div className="player-field">
+      <table>
+        <tbody>
+          <tr>
+            <td></td>
+            {
+              xNums.map((xNum, index) => (
+                <td key={index}>
+                  <div>{xNum}</div>
+                </td>
+              ))
+            }
+          </tr>
           {
-            xNums.map((xNum) => (
-              <td>
-                <div>{xNum}</div>
-              </td>
+            yNums.map((yNum, yIndex) => (
+              <tr key={yIndex}>
+                <td>{yNum}</td>
+                {
+                  xNums.map((xNum, xIndex) => (
+                    <td key={xIndex}>
+                      <div>
+                        {displayNumber(yIndex, xIndex)}
+                      </div>
+                    </td>
+                  ))
+                }
+              </tr>
             ))
           }
-        </tr>
-        {
-          yNums.map((yNum, yIndex) => (
-            <tr>
-              <td>{yNum}</td>
-              {
-                xNums.map((xNum, xIndex) => (
-                  <td>
-                    <div>
-                      {displayNumber(yIndex, xIndex)}
-                    </div>
-                  </td>
-                ))
-              }
-            </tr>
-          ))
-        }
-      </tbody>
-    </table>
-  </div>
-);
+        </tbody>
+      </table>
+    </div>
+  );
 };
 
 export default PlayerField;

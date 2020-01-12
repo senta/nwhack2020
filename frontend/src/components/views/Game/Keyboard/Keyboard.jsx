@@ -1,11 +1,20 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+
+import {finishLine, attack} from '../../../../lib/connection.js';
 import { setInput, moveCoordinate } from '../../../../actions'
 import './Keyboard.scss';
 
-const Keyboard = (props) => {
+const Keyboard = () => {
+  let [canAct, setAct] = useState(false);
+  let [isNewLine, setNewLine] = useState(false);
   const action = (event) => {
-    return () => props.socket.emit('PLAYER_ATTACK', { action: event, to: props.id });
+    return () => {
+      if (canAct) {
+        attack(event);
+        setAct(false);
+      } else console.log("Can't act right now");
+    }
   }
   const input = useSelector(state => state.input);
   const xNums = useSelector(state => state.xNums);
@@ -14,6 +23,12 @@ const Keyboard = (props) => {
   const answer = (xNums[x] * yNums[y]).toString();
 
   const dispatch = useDispatch();
+
+  if(x === 0 && y > 0 && input === '' && isNewLine === false) {
+    finishLine();
+    setNewLine(true);
+    if(canAct === false) setAct(true);
+  } else if(x === 1 && y > 0 && input === '' && isNewLine === true) setNewLine(false);
 
   const handleClick = (value) => {
     return function () {

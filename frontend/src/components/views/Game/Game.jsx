@@ -1,7 +1,4 @@
-import React, {useState} from 'react';
-import { Provider } from "react-redux";
-
-import store from '../../../store';
+import React from 'react';
 import PlayerField from './PlayerField/PlayerField';
 import OpponentFieldMap from './OpponentFieldMap/OpponentFieldMap';
 import Keyboard from './Keyboard/Keyboard';

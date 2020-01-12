@@ -151,9 +151,7 @@ When the player finished a line.
 *** payload
 
 #+begin_example
-{
-  line: number # from 0 to the final line
-}
+null
 #+end_example
 
 

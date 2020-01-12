@@ -88,13 +88,13 @@ export function attack(action) {
 socket.on("connect", () => heartbeat.start());
 socket.on("disconnect", () => heartbeat.stop());
 
-socket.on("GAME_START", payload => actions.gameWillStart(payload));
-socket.on("GAME_END", payload => actions.gameFinished(payload));
+socket.on("GAME_START", payload => store.dispatch(actions.gameWillStart(payload)));
+socket.on("GAME_END", payload => store.dispatch(actions.gameFinished(payload)));
 
-socket.on("GAME_PLAYER_JOINED", payload => actions.gameJoin(payload));
-socket.on("GAME_PLAYER_LEFT", payload => actions.gameJoin(payload));
+socket.on("GAME_PLAYER_JOINED", payload => store.dispatch(actions.gameJoin(payload)));
+socket.on("GAME_PLAYER_LEFT", payload => store.dispatch(actions.gameJoin(payload)));
 
-socket.on("PLAYER_STATE_SYNC", payload => actions.sync(payload));
-socket.on("PLAYER_ATTACKED", payload => actions.attacked(payload));
+socket.on("PLAYER_STATE_SYNC", payload => store.dispatch(actions.sync(payload)));
+socket.on("PLAYER_ATTACKED", payload => store.dispatch(actions.attacked(payload)));
 
-socket.on("PLAYER_TIMEOVER", payload => actions.timeover(payload));
+socket.on("PLAYER_TIMEOVER", payload => store.dispatch(actions.timeover(payload)));

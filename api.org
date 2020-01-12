@@ -220,15 +220,12 @@ A player finished the final line.
 
 *** event
 
-=PLAYER_ATTACKED=
+=PLAYER_STATE_SYNC=
 
 *** payload
 
 #+begin_example
 {
-  time: number (timestamp)
-  multipliers: number[]
-  goal: number
   players: [
     {
       progress: 0

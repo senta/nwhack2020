@@ -67,14 +67,6 @@ const rootReducer = (store = initialValue, action) => {
         ...store,
         players: action.payload.players
       };
-    case actions.GAME_PLAYER_ATTACKED:
-      return {
-        ...store
-      };
-    case actions.GAME_PLAYER_TIMEOVER:
-      return {
-        ...store
-      };
     default:
       return store;
   }

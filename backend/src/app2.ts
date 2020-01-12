@@ -318,7 +318,7 @@ class Game {
 
       logger.info(`game:${this.id}: notify game start to ${player.id}`);
       conn.emit("GAME_START", {
-        time: start + delay,
+        time: 3000 + delay,
         multipliers: [...multipliers],
         players: this.players
       });
@@ -397,6 +397,7 @@ class Game {
 
     const conn = io.sockets.connected[player.id];
     conn.emit("PLAYER_TIMEOVER");
+    this.leave(player)
     this.handleStateChanged();
   }
 

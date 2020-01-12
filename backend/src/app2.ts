@@ -100,7 +100,7 @@ rest.post("/api/room/", (req, res) => {
   const game = Game.create(io.sockets, player, parseInt(lines, 10));
 
   res.json({
-    state: 200,
+    status: 200,
     body: {
       room: game.id
     }
@@ -122,7 +122,7 @@ rest.post("/api/room/:id/join", (req, res) => {
   game.join(player);
 
   res.json({
-    state: 200,
+    status: 200,
     body: null
   });
 });
@@ -142,7 +142,7 @@ rest.post("/api/room/:id/leave", (req, res) => {
   game.leave(player);
 
   res.json({
-    state: 200,
+    status: 200,
     body: null
   });
 });
